@@ -60,7 +60,7 @@ eventHub.addEventListener("alibiClicked", alibiClick => {
             (person) => person.id === personID
         )
         const criminal = selectedAlibi.known_associates
-        console.log("criminal", criminal)
+        // console.log("criminal", criminal)
         
         window.alert(criminal.map(person => `${person.name}, ${person.alibi}` ).join("/n"))}
         
