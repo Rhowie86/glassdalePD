@@ -11,6 +11,7 @@ eventHub.addEventListener("crimeChosen", event => {
         /*
             Filter the criminals application state down to the people that committed the crime
         */
+        // console.log("event", event.detail.crimeThatWasChosen)
         const matchingCriminals = allCriminals.filter(
             criminalObj => 
                 criminalObj.conviction === event.detail.crimeThatWasChosen
@@ -50,6 +51,23 @@ eventHub.addEventListener("officerChosen", event => {
        render(matchingCriminals)
     }
 })
+
+eventHub.addEventListener("alibiClicked", alibiClick => {
+    let allCriminals = useCriminals()
+    if (alibiClick.detail.alibiButtonClicked !== 0) {
+        const personID = alibiClick.detail.alibiButtonClicked
+        const selectedAlibi = allCriminals.find(
+            (person) => person.id === personID
+        )
+        const criminal = selectedAlibi.known_associates
+        console.log("criminal", criminal)
+        
+        window.alert(criminal.map(person => `${person.name}, ${person.alibi}` ).join("/n"))}
+        
+            
+        // console.log("alibi", associates)
+    })
+
 
 const render = matchingCriminals => {
     

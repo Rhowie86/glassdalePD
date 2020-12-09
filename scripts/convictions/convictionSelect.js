@@ -33,7 +33,7 @@ const render = convictionsCollection => {
     ${
         convictionsCollection.map(convictionObj => {
             const crimeName = convictionObj.name
-            return `<option>${crimeName}</option> `
+            return `<option value=${convictionObj.name}>${crimeName}</option> `
         })
     }
     </select>`

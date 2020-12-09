@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+ 
+body {
+    font-family: 'Source Code Pro', monospace;
+}
 
-    
 .criminalsContainer {
     display: flex;
     margin: 12px 0;
@@ -16,4 +20,15 @@
     flex-basis: 25%;
     margin: 12px;
     padding: 8px;
+}
+
+.form {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    margin-right: 30rem;
+}
+
+.save-note {
+    margin:8px auto;
 }
