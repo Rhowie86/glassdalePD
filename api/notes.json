@@ -1,25 +1,18 @@
 {
   "notes": [
     {
-      "date": 1607451147155,
-      "author": "Iman",
-      "suspect": "Nick",
-      "noteText": "Communist",
+      "date": 1610039954561,
+      "author": "Test note",
+      "criminalId": 21,
+      "noteText": "Loy is a name",
       "id": 1
     },
     {
-      "date": 1607451212907,
-      "author": "John Long",
-      "suspect": "Joe Shep",
-      "noteText": "Stolen cigarettes",
+      "date": 1610040116993,
+      "author": "Testing again",
+      "criminalId": 63,
+      "noteText": "Dino is also a name",
       "id": 2
-    },
-    {
-      "date": 1607535244689,
-      "author": "ron",
-      "suspect": "roxy",
-      "noteText": "being too cute",
-      "id": 3
     }
   ]
 }
