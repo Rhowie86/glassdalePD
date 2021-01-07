@@ -7,6 +7,11 @@ import { getCriminalFacilities, useCriminalFacilities } from "../facilities/crim
 const eventHub = document.querySelector(".container")
 const contentTarget = document.querySelector(".criminalsContainer")
 // Listen for the custom event you dispatched in ConvictionSelect
+
+    let criminalState = []
+    let crimFac = []
+    let facilities = []
+
 eventHub.addEventListener("crimeChosen", event => {
     // Use the property you added to the event detail.
     if (event.detail.crimeThatWasChosen !== "0"){
@@ -14,7 +19,7 @@ eventHub.addEventListener("crimeChosen", event => {
             Filter the criminals application state down to the people that committed the crime
         */
         // console.log("event", event.detail.crimeThatWasChosen)
-        const matchingCriminals = allCriminals.filter(
+        const matchingCriminals = criminalState.filter(
             criminalObj => 
                 criminalObj.conviction === event.detail.crimeThatWasChosen
                     
@@ -38,7 +43,7 @@ eventHub.addEventListener("officerChosen", event => {
         /*
             Filter the criminals application state down to the people that committed the crime
         */
-        const matchingCriminals = allCriminals.filter(
+        const matchingCriminals = criminalState.filter(
             criminalObj => 
                 criminalObj.arrestingOfficer === event.detail.officerThatWasChosen
                     
@@ -69,8 +74,8 @@ eventHub.addEventListener("alibiClicked", alibiClick => {
             
         // console.log("alibi", associates)
     })
-
-
+    
+    
     export const criminalList = () => {
         // Kick off the fetching of both collections of data
         getFacilities()
@@ -79,12 +84,12 @@ eventHub.addEventListener("alibiClicked", alibiClick => {
             .then(
                 () => {
                     // Pull in the data now that it has been fetched
-                    const facilities = useFacilities()
-                    const crimFac = useCriminalFacilities()
-                    const criminals = useCriminals()
+                    facilities = useFacilities()
+                    crimFac = useCriminalFacilities()
+                    criminalState = useCriminals()
     
                     // Pass all three collections of data to render()
-                    render(criminals, facilities, crimFac)
+                    render(criminalState)
                 }
             )
     }
@@ -99,21 +104,21 @@ eventHub.addEventListener("alibiClicked", alibiClick => {
   
 // }
 
-const render = (criminalsToRender, allFacilities, allRelationships) => {
+const render = (criminalsToRender) => {
     // Step 1 - Iterate all criminals
     contentTarget.innerHTML = criminalsToRender.map(
         (criminalObject) => {
             // Step 2 - Filter all relationships to get only ones for this criminal
-            const facilityRelationshipsForThisCriminal = allRelationships.filter(cf => cf.criminalId === criminalObject.id)
+            const facilityRelationshipsForThisCriminal = crimFac.filter(cf => cf.criminalId === criminalObject.id)
 
             // Step 3 - Convert the relationships to facilities with map()
-            const facilities = facilityRelationshipsForThisCriminal.map(cf => {
-                const matchingFacilityObject = allFacilities.find(facility => facility.id === cf.facilityId)
+            const facilityList = facilityRelationshipsForThisCriminal.map(cf => {
+                const matchingFacilityObject = facilities.find(facility => facility.id === cf.facilityId)
                 return matchingFacilityObject
             })
 
             // Must pass the matching facilities to the Criminal component
-            return criminals(criminalObject, facilities)
+            return criminals(criminalObject, facilityList)
         }
     ).join("")
 }

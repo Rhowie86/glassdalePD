@@ -11,12 +11,14 @@ import "./alibis/alibiList.js"
 import "./witnesses/witnessProvider.js"
 import "./witnesses/witnessList.js"
 import { ShowWitnessButton } from "./witnesses/showWitnessButton.js"
+import { ShowFacilitiesButton } from "./facilities/showFacilitiesButton.js"
 
 ConvictionSelect()
 OfficerSelect()
 // OfficerList()
 ShowNoteButton()
 ShowWitnessButton()
+ShowFacilitiesButton()
 NoteForm()
 criminalList()
 
