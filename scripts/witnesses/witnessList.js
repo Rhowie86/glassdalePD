@@ -16,15 +16,19 @@ const contentTarget = document.querySelector(".witnessList")
         contentTarget.innerHTML = allWitnessesConvertedToStrings
     }
 
-    const toggleVisibility = (eId, bId) => {
+    const toggleVisibility = (eId, bId, cId) => {
         const e = document.getElementById(eId);
         const b = document.getElementById(bId);
+        const c = document.getElementById(cId);
         if(e.style.display == 'block'){
            e.style.display = 'none';
+           c.style.display = '';
            b.innerHTML = 'Show Witnesses';}
         else {
            e.style.display = 'block';
-           b.innerHTML = 'Hide Witnesses';}
+           b.innerHTML = 'Show Criminals';
+           c.style.display = 'none'; 
+        }
      }
 
 let witnesses = []
@@ -33,7 +37,7 @@ export const witnessList = () => {
     .then(() => {
         witnesses = useWitnesses()
         render(witnesses)
-        toggleVisibility("hide", "showWitnesses")
+        toggleVisibility("hide", "showWitnesses", "person")
         // console.log("witnesses", witnesses)
         })
 }

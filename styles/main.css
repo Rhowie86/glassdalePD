@@ -56,3 +56,21 @@ body {
     padding: 8px;
     background-color:rgb(93, 99, 99);
 }
+
+.witnessListContainer {
+    display: flex;
+    margin: 12px 0;
+    flex-basis: 30%;
+    flex-wrap: wrap;
+    
+}
+
+.witness-cards {
+    border: solid black 2px;
+    justify-content: space-around;
+    flex-basis: 25%;
+    margin: 12px;
+    padding: 8px;
+    background-color:rgb(93, 99, 99);
+
+}
