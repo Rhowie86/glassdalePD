@@ -4,6 +4,10 @@ body {
     font-family: 'Source Code Pro', monospace;
 }
 
+.container {
+    background-color: gray;
+}
+
 .criminalsContainer {
     display: flex;
     margin: 12px 0;
@@ -20,6 +24,7 @@ body {
     flex-basis: 25%;
     margin: 12px;
     padding: 8px;
+    background-color:rgb(161, 161, 145)
 }
 
 .form {
@@ -31,4 +36,23 @@ body {
 
 .save-note {
     margin:8px auto;
+}
+
+.facilityContainer {
+    display: flex;
+    margin: 12px 0;
+    flex-basis: 30%;
+    flex-wrap: wrap;
+    
+    
+}
+
+.facility-container {
+    
+    border: solid black 2px;
+    justify-content: space-around;
+    flex-basis: 25%;
+    margin: 12px;
+    padding: 8px;
+    background-color:rgb(93, 99, 99);
 }

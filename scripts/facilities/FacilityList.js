@@ -1,46 +1,76 @@
+import { getFacilities, useFacilities} from "./facilityProvider.js"
+import { getCriminalFacilities, useCriminalFacilities } from "./criminalFacilityProvider.js"
+import { getCriminals, useCriminals } from "../criminals/criminalProvider.js"
+import { facility } from "./Facility.js"
+
 const eventHub = document.querySelector(".container")
-const contentTarget = document.querySelector(".witnessList")
+const contentTarget = document.querySelector(".facilityContainer")
 
 
-    eventHub.addEventListener("showWitnessesClicked", clickEvent => {
-        witnessList()
+    eventHub.addEventListener("facilitiesButtonClicked", clickEvent => {
+        facilitiesList()
     })
 
 
-    export const criminalList = () => {
+    const toggleVisibility = (eId, bId, cId) => {
+        const e = document.getElementById(eId);
+        const b = document.getElementById(bId);
+        const c = document.getElementById(cId);
+        if(e.style.display == ''){
+           e.style.display = 'none';
+           b.innerHTML = 'Show Facilities';
+           c.style.display = ''; 
+        }
+        else {
+           e.style.display = '';
+           b.innerHTML = 'Show Criminals';
+           c.style.display = 'none';}
+     }
+    
+
+     let facilities = []
+     let crimFac = []
+     let criminalState = []
+
+
+    export const facilitiesList = () => {
         // Kick off the fetching of both collections of data
-        getFacilities()
-            .then(getCriminals)
+        getCriminals()
+            .then(getFacilities)
             .then(getCriminalFacilities)
             .then(
                 () => {
                     // Pull in the data now that it has been fetched
-                    const facilities = useFacilities()
-                    const crimFac = useCriminalFacilities()
-                    const criminals = useCriminals()
+
+                    facilities = useFacilities()
+                    crimFac = useCriminalFacilities()
+                    
+                    criminalState = useCriminals()
     
                     // Pass all three collections of data to render()
-                    render(criminals, facilities, crimFac)
+                    render(facilities)
+                    toggleVisibility("prison", "showFacilities", "person")
                 }
             )
     }
 
 
-const render = (criminalsToRender, allFacilities, allRelationships) => {
+const render = (facilitiesToRender) => {
     // Step 1 - Iterate all criminals
-    contentTarget.innerHTML = criminalsToRender.map(
-        (criminalObject) => {
+    contentTarget.innerHTML = facilitiesToRender.map(
+        (facilityObject) => {
             // Step 2 - Filter all relationships to get only ones for this criminal
-            const facilityRelationshipsForThisCriminal = allRelationships.filter(cf => cf.criminalId === criminalObject.id)
+            const criminalRelationshipToFacility = crimFac.filter(cf => cf.criminalId === facilityObject.id)
 
             // Step 3 - Convert the relationships to facilities with map()
-            const facilities = facilityRelationshipsForThisCriminal.map(cf => {
-                const matchingFacilityObject = allFacilities.find(facility => facility.id === cf.facilityId)
-                return matchingFacilityObject
+            const criminalList = criminalRelationshipToFacility.map(cf => {
+                const matchingCriminalObject = criminalState.find(criminal => criminal.id === cf.facilityId)
+                // console.log("testing", matchingCriminalObject)
+                return matchingCriminalObject
             })
 
             // Must pass the matching facilities to the Criminal component
-            return criminals(criminalObject, facilities)
+            return facility(facilityObject, criminalList)
         }
     ).join("")
 }

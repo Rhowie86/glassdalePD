@@ -12,6 +12,7 @@ import "./witnesses/witnessProvider.js"
 import "./witnesses/witnessList.js"
 import { ShowWitnessButton } from "./witnesses/showWitnessButton.js"
 import { ShowFacilitiesButton } from "./facilities/showFacilitiesButton.js"
+import { facilitiesList } from "./facilities/FacilityList.js"
 
 ConvictionSelect()
 OfficerSelect()
@@ -21,4 +22,5 @@ ShowWitnessButton()
 ShowFacilitiesButton()
 NoteForm()
 criminalList()
+facilitiesList()
 
